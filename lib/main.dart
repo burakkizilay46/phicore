@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:phicore/core/navigation/navigation_constants.dart';
+import 'package:phicore/core/navigation/navigation_routes.dart';
+import 'package:phicore/core/navigation/service/navigation_service.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ProviderScope(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -10,8 +14,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: NavigationService.instance.navigatorKey,
+      onGenerateRoute: NavigationRoute.instance.generateRoute,
+      initialRoute: NavigationConstants.splash,
       title: 'phicore',
-      home: Scaffold(body: const Center(child: Text('phicore'))),
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.grey[100],
+        appBarTheme: AppBarTheme(backgroundColor: Colors.white),
+      ),
     );
   }
 }
