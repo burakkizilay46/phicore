@@ -13,8 +13,12 @@ class SignInView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Spacer(flex:1),
+            Image.asset(
+              'assets/logo/phicore_logo_transparent.png',
+              height: 200,
+            ),
             AppTextField(label: 'Email'),
             SizedBox(height: 12),
             AppTextField(label: "Password"),
@@ -22,12 +26,15 @@ class SignInView extends StatelessWidget {
             SizedBox(
               height: 48,
               width: MediaQuery.of(context).size.width - 24,
-              child: AppButton(onTap: () {}, buttonText: 'Sign in'),
+              child: AppButton(onTap: () {}, text: 'Sign in'),
             ),
             TextButton(
               onPressed: () {},
               child: Text('Do you have not an account?'),
             ),
+            Spacer(flex:2),
+            
+            
           ],
         ),
       ),

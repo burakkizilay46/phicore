@@ -9,8 +9,9 @@ class SplashView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(splashViewModelProvider);
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Center(
-        child: FlutterLogo(size: MediaQuery.of(context).size.width / 2),
+        child: Image.asset('assets/logo/phicore_logo_transparent.png'),
       ),
     );
   }
