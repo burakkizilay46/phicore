@@ -1,6 +1,6 @@
 import 'package:phicore/core/base/model/base_response_model.dart';
 import 'package:phicore/core/network/response_handler.dart';
-import 'package:phicore/core/services/auth/IAuthService.dart';
+import 'package:phicore/core/services/auth/i_auth_service.dart';
 import 'package:phicore/features/auth/sign_in/data/model/auth_user_model.dart';
 
 class AuthService extends IAuthService {

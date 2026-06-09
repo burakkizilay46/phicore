@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:phicore/core/navigation/service/INavigationService.dart';
+import 'package:phicore/core/navigation/service/i_navigation_service.dart';
 
 class NavigationService implements INavigationService {
   static final NavigationService _instance = NavigationService._init();

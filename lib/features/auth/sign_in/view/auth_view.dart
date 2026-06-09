@@ -14,7 +14,7 @@ class SignInView extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Spacer(flex:1),
+            Spacer(flex: 1),
             Image.asset(
               'assets/logo/phicore_logo_transparent.png',
               height: 200,
@@ -32,9 +32,7 @@ class SignInView extends StatelessWidget {
               onPressed: () {},
               child: Text('Do you have not an account?'),
             ),
-            Spacer(flex:2),
-            
-            
+            Spacer(flex: 2),
           ],
         ),
       ),

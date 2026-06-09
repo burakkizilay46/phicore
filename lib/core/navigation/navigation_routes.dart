@@ -14,7 +14,7 @@ class NavigationRoute {
     switch (args.name) {
       case NavigationConstants.splash:
         return normalNavigate(const SplashView());
-      case NavigationConstants.sign_in:
+      case NavigationConstants.signIn:
         return normalNavigate(const SignInView());
       case NavigationConstants.register:
         return normalNavigate(const SignInView());

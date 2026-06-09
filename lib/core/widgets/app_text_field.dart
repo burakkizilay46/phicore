@@ -191,7 +191,7 @@ class _AppTextFieldState extends State<AppTextField> {
         boxShadow: _isFocused ? AppShadows.subtle : null,
         border: Border.all(
           color: _isFocused
-              ? theme.colorScheme.primary.withOpacity(0.5)
+              ? theme.colorScheme.primary.withValues(alpha: 0.5)
               : Colors.transparent,
           width: 1.5,
         ),
@@ -219,7 +219,7 @@ class _AppTextFieldState extends State<AppTextField> {
             border: Border.all(
               color: _isFocused
                   ? AppColors.glassBorder
-                  : AppColors.glassBorder.withOpacity(0.5),
+                  : AppColors.glassBorder.withValues(alpha: 0.5),
               width: 1,
             ),
             boxShadow: AppShadows.glass,
@@ -230,8 +230,8 @@ class _AppTextFieldState extends State<AppTextField> {
             fillColor: Colors.transparent,
             borderStyle: InputBorder.none,
             textColor: AppColors.white,
-            hintColor: AppColors.white.withOpacity(0.6),
-            labelColor: AppColors.white.withOpacity(0.8),
+            hintColor: AppColors.white.withValues(alpha: 0.6),
+            labelColor: AppColors.white.withValues(alpha: 0.8),
             cursorColor: AppColors.white,
           ),
         ),

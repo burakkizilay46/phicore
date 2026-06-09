@@ -216,7 +216,7 @@ class _AppButtonState extends State<AppButton>
         decoration: BoxDecoration(
           color: _isEnabled
               ? _resolvedColor
-              : _resolvedColor.withOpacity(0.4),
+              : _resolvedColor.withValues(alpha: 0.4),
           borderRadius: _borderRadius,
           boxShadow: _isEnabled ? AppShadows.soft : null,
         ),
@@ -238,7 +238,7 @@ class _AppButtonState extends State<AppButton>
           border: Border.all(
             color: _isEnabled
                 ? _resolvedColor
-                : _resolvedColor.withOpacity(0.4),
+                : _resolvedColor.withValues(alpha: 0.4),
             width: 1.5,
           ),
         ),
@@ -295,7 +295,7 @@ class _AppButtonState extends State<AppButton>
         width: widget.expand ? double.infinity : null,
         decoration: BoxDecoration(
           gradient: _isEnabled ? grad : null,
-          color: _isEnabled ? null : AppColors.grey50.withOpacity(0.3),
+          color: _isEnabled ? null : AppColors.grey50.withValues(alpha: 0.3),
           borderRadius: _borderRadius,
           boxShadow: _isEnabled ? AppShadows.primaryGlow : null,
         ),
@@ -306,7 +306,7 @@ class _AppButtonState extends State<AppButton>
 
   // ── İçerik (text + icon + loader) ──
   Widget _buildContent(Color foreground) {
-    final color = _isEnabled ? foreground : foreground.withOpacity(0.6);
+    final color = _isEnabled ? foreground : foreground.withValues(alpha: 0.6);
 
     return Center(
       child: Padding(

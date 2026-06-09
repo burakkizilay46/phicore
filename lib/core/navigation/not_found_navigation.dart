@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 
-class NotFoundNavigation extends StatefulWidget {
+class NotFoundNavigation extends StatelessWidget {
   const NotFoundNavigation({super.key});
 
   @override
-  _NotFoundNavigationState createState() => _NotFoundNavigationState();
-}
-
-class _NotFoundNavigationState extends State<NotFoundNavigation> {
-  @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Text('Navigation not found'));
+    return const Scaffold(body: Center(child: Text('Navigation not found')));
   }
 }

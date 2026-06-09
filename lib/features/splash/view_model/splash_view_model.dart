@@ -16,7 +16,7 @@ class SplashViewModel extends StateNotifier<bool> {
   Future<void> _init() async {
     await Future.delayed(Duration(seconds: 2));
     await NavigationService.instance.navigateToPageClear(
-      path: NavigationConstants.sign_in,
+      path: NavigationConstants.signIn,
     );
   }
 }
