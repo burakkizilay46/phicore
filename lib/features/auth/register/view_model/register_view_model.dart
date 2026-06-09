@@ -6,21 +6,29 @@ import 'package:phicore/core/navigation/service/navigation_service.dart';
 import 'package:phicore/core/services/auth/auth_service.dart';
 import 'package:phicore/features/auth/sign_in/data/model/auth_user_model.dart';
 
-final authViewModelProvider =
-    StateNotifierProvider<AuthViewModel, BaseState<UserModel>>((ref) {
-  return AuthViewModel();
+final registerViewModelProvider =
+    StateNotifierProvider<RegisterViewModel, BaseState<UserModel>>((ref) {
+  return RegisterViewModel();
 });
 
-class AuthViewModel extends BaseViewModel<UserModel> {
+class RegisterViewModel extends BaseViewModel<UserModel> {
   final AuthService _authService = AuthService();
 
-  Future<void> signIn({
+  Future<void> register({
+    required String name,
+    required String surname,
     required String email,
     required String password,
   }) async {
-    await execute(() => _authService.signIn(email: email, password: password));
+    await execute(
+      () => _authService.register(
+        name: name,
+        surname: surname,
+        email: email,
+        password: password,
+      ),
+    );
 
-    // Başarılı login → ana sayfaya yönlendir
     state.maybeWhen(
       loaded: (_) {
         NavigationService.instance.navigateToPageClear(

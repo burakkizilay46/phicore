@@ -6,5 +6,17 @@ abstract class IAuthService {
     required String email,
     required String password,
   });
+
+  Future<ResponseHandler<UserModel>> register({
+    required String name,
+    required String surname,
+    required String email,
+    required String password,
+  });
+
+  Future<ResponseHandler<bool>> forgotPassword({required String email});
+
   Future<ResponseHandler<bool>> signOut();
+
+  Future<bool> isAuthenticated();
 }

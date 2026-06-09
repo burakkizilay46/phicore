@@ -1,40 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phicore/core/extensions/context_extensions.dart';
-import 'package:phicore/core/navigation/navigation_constants.dart';
-import 'package:phicore/core/navigation/service/navigation_service.dart';
 import 'package:phicore/core/theme/app_colors.dart';
 import 'package:phicore/core/theme/app_spacing.dart';
 import 'package:phicore/core/utils/validators.dart';
 import 'package:phicore/core/widgets/app_button.dart';
 import 'package:phicore/core/widgets/app_snackbar.dart';
 import 'package:phicore/core/widgets/app_text_field.dart';
-import 'package:phicore/features/auth/sign_in/view_model/auth_view_model.dart';
+import 'package:phicore/features/auth/register/view_model/register_view_model.dart';
 
-class SignInView extends ConsumerStatefulWidget {
-  const SignInView({super.key});
+class RegisterView extends ConsumerStatefulWidget {
+  const RegisterView({super.key});
 
   @override
-  ConsumerState<SignInView> createState() => _SignInViewState();
+  ConsumerState<RegisterView> createState() => _RegisterViewState();
 }
 
-class _SignInViewState extends ConsumerState<SignInView> {
+class _RegisterViewState extends ConsumerState<RegisterView> {
   final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _surnameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
 
   @override
   void dispose() {
+    _nameController.dispose();
+    _surnameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
-  void _onSignIn() {
+  void _onRegister() {
     if (!_formKey.currentState!.validate()) return;
     context.unfocus();
 
-    ref.read(authViewModelProvider.notifier).signIn(
+    ref
+        .read(registerViewModelProvider.notifier)
+        .register(
+          name: _nameController.text.trim(),
+          surname: _surnameController.text.trim(),
           email: _emailController.text.trim(),
           password: _passwordController.text,
         );
@@ -42,11 +50,10 @@ class _SignInViewState extends ConsumerState<SignInView> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(authViewModelProvider);
+    final state = ref.watch(registerViewModelProvider);
     final isLoading = state.maybeWhen(loading: () => true, orElse: () => false);
 
-    // Error listener
-    ref.listen(authViewModelProvider, (prev, next) {
+    ref.listen(registerViewModelProvider, (prev, next) {
       next.maybeWhen(
         error: (message) => AppSnackbar.error(context, message: message),
         orElse: () {},
@@ -54,37 +61,65 @@ class _SignInViewState extends ConsumerState<SignInView> {
     });
 
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => context.pop(),
+          icon: const Icon(Icons.arrow_back_ios_new, size: 20),
+        ),
+        title: const Text('Kayıt Ol'),
+      ),
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: AppSpacing.paddingXl,
           child: Form(
             key: _formKey,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Spacer(flex: 2),
-
-                // Logo
-                Image.asset(
-                  'assets/logo/phicore_logo_transparent.png',
-                  height: 120,
-                ),
-                AppSpacing.gapXl,
+                AppSpacing.gapLg,
 
                 // Başlık
                 Text(
-                  'Hoş Geldiniz',
+                  'Hesap Oluşturun',
                   style: context.textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 AppSpacing.gapXs,
                 Text(
-                  'Devam etmek için giriş yapın',
+                  'Bilgilerinizi girerek kayıt olun',
                   style: context.textTheme.bodyMedium?.copyWith(
                     color: AppColors.grey50,
                   ),
                 ),
                 AppSpacing.gapXxl,
+
+                // Ad - Soyad yan yana
+                Row(
+                  children: [
+                    Expanded(
+                      child: AppTextField(
+                        controller: _nameController,
+                        label: 'Ad',
+                        hintText: 'Adınız',
+                        prefixIcon: const Icon(Icons.person_outline, size: 20),
+                        textInputAction: TextInputAction.next,
+                        validator: Validators.name,
+                      ),
+                    ),
+                    const SizedBox(width: AppSpacing.md),
+                    Expanded(
+                      child: AppTextField(
+                        controller: _surnameController,
+                        label: 'Soyad',
+                        hintText: 'Soyadınız',
+                        textInputAction: TextInputAction.next,
+                        validator: Validators.name,
+                      ),
+                    ),
+                  ],
+                ),
+                AppSpacing.gapMd,
 
                 // Email
                 AppTextField(
@@ -105,70 +140,59 @@ class _SignInViewState extends ConsumerState<SignInView> {
                   hintText: '••••••',
                   prefixIcon: const Icon(Icons.lock_outline, size: 20),
                   obscureText: true,
-                  textInputAction: TextInputAction.done,
-                  onSubmitted: (_) => _onSignIn(),
+                  textInputAction: TextInputAction.next,
                   validator: Validators.password,
                 ),
-                AppSpacing.gapSm,
+                AppSpacing.gapMd,
 
-                // Şifremi Unuttum
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {
-                      NavigationService.instance.navigateToPage(
-                        path: NavigationConstants.forgotPassword,
-                      );
-                    },
-                    child: Text(
-                      'Şifremi Unuttum',
-                      style: context.textTheme.bodySmall?.copyWith(
-                        color: AppColors.grey70,
-                      ),
-                    ),
+                // Şifre Tekrar
+                AppTextField(
+                  controller: _confirmPasswordController,
+                  label: 'Şifre Tekrar',
+                  hintText: '••••••',
+                  prefixIcon: const Icon(Icons.lock_outline, size: 20),
+                  obscureText: true,
+                  textInputAction: TextInputAction.done,
+                  onSubmitted: (_) => _onRegister(),
+                  validator: Validators.confirmPassword(
+                    _passwordController.text,
                   ),
                 ),
-                AppSpacing.gapLg,
+                AppSpacing.gapXl,
 
-                // Giriş Butonu
+                // Kayıt Ol Butonu
                 SizedBox(
                   width: double.infinity,
                   child: AppButton(
-                    onTap: isLoading ? null : _onSignIn,
-                    text: 'Giriş Yap',
+                    onTap: isLoading ? null : _onRegister,
+                    text: 'Kayıt Ol',
                     isLoading: isLoading,
                   ),
                 ),
                 AppSpacing.gapLg,
 
-                // Kayıt ol linki
+                // Giriş yap linki
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Hesabınız yok mu?',
+                      'Zaten hesabınız var mı?',
                       style: context.textTheme.bodyMedium?.copyWith(
                         color: AppColors.grey50,
                       ),
                     ),
                     TextButton(
-                      onPressed: () {
-                        NavigationService.instance.navigateToPage(
-                          path: NavigationConstants.register,
-                        );
-                      },
+                      onPressed: () => context.pop(),
                       child: Text(
-                        'Kayıt Ol',
+                        'Giriş Yap',
                         style: context.textTheme.bodyMedium?.copyWith(
-                          color: AppColors.primary,
+                          color: AppColors.black,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
                   ],
                 ),
-
-                const Spacer(flex: 3),
               ],
             ),
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phicore/core/navigation/navigation_constants.dart';
 import 'package:phicore/core/navigation/service/navigation_service.dart';
+import 'package:phicore/core/services/auth/auth_service.dart';
 
 final splashViewModelProvider = StateNotifierProvider<SplashViewModel, bool>((
   ref,
@@ -14,9 +15,16 @@ class SplashViewModel extends StateNotifier<bool> {
   }
 
   Future<void> _init() async {
-    await Future.delayed(Duration(seconds: 2));
-    await NavigationService.instance.navigateToPageClear(
-      path: NavigationConstants.signIn,
-    );
+    // Splash animasyonu için minimum bekleme
+    await Future.delayed(const Duration(seconds: 2));
+
+    // Auth kontrolü
+    final isAuthenticated = await AuthService().isAuthenticated();
+
+    final targetRoute = isAuthenticated
+        ? NavigationConstants.home
+        : NavigationConstants.signIn;
+
+    await NavigationService.instance.navigateToPageClear(path: targetRoute);
   }
 }
