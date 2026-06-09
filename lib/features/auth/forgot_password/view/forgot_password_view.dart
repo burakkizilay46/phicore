@@ -63,78 +63,77 @@ class _ForgotPasswordViewState extends ConsumerState<ForgotPasswordView> {
         title: const Text('Şifremi Unuttum'),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: AppSpacing.paddingXl,
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Spacer(flex: 2),
-
-                // İkon
-                Container(
-                  width: 64,
-                  height: 64,
-                  decoration: BoxDecoration(
-                    color: AppColors.surfaceLight,
-                    borderRadius: BorderRadius.circular(16),
+        child: Center(
+          child: SingleChildScrollView(
+            padding: AppSpacing.paddingXl,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // İkon
+                  Container(
+                    width: 64,
+                    height: 64,
+                    decoration: BoxDecoration(
+                      color: AppColors.surfaceLight,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Icon(
+                      Icons.lock_reset_outlined,
+                      size: 32,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
-                  child: const Icon(
-                    Icons.lock_reset_outlined,
-                    size: 32,
-                    color: AppColors.primary,
+                  AppSpacing.gapXl,
+
+                  // Başlık
+                  Text(
+                    'Şifrenizi mi unuttunuz?',
+                    style: context.textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                ),
-                AppSpacing.gapXl,
-
-                // Başlık
-                Text(
-                  'Şifrenizi mi unuttunuz?',
-                  style: context.textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
+                  AppSpacing.gapSm,
+                  Text(
+                    'Email adresinizi girin, size şifre sıfırlama bağlantısı gönderelim.',
+                    style: context.textTheme.bodyMedium?.copyWith(
+                      color: AppColors.grey50,
+                    ),
                   ),
-                ),
-                AppSpacing.gapSm,
-                Text(
-                  'Email adresinizi girin, size şifre sıfırlama bağlantısı gönderelim.',
-                  style: context.textTheme.bodyMedium?.copyWith(
-                    color: AppColors.grey50,
+                  AppSpacing.gapXxl,
+
+                  // Email
+                  AppTextField(
+                    controller: _emailController,
+                    label: 'Email',
+                    hintText: 'ornek@email.com',
+                    prefixIcon: const Icon(Icons.email_outlined, size: 20),
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.done,
+                    onSubmitted: (_) => _onSubmit(),
+                    validator: Validators.email,
+                    enabled: !isSuccess,
                   ),
-                ),
-                AppSpacing.gapXxl,
+                  AppSpacing.gapXl,
 
-                // Email
-                AppTextField(
-                  controller: _emailController,
-                  label: 'Email',
-                  hintText: 'ornek@email.com',
-                  prefixIcon: const Icon(Icons.email_outlined, size: 20),
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.done,
-                  onSubmitted: (_) => _onSubmit(),
-                  validator: Validators.email,
-                  enabled: !isSuccess,
-                ),
-                AppSpacing.gapXl,
-
-                // Gönder Butonu
-                SizedBox(
-                  width: double.infinity,
-                  child: isSuccess
-                      ? AppButton.outlined(
-                          onTap: () => context.pop(),
-                          text: 'Giriş Ekranına Dön',
-                        )
-                      : AppButton(
-                          onTap: isLoading ? null : _onSubmit,
-                          text: 'Bağlantı Gönder',
-                          isLoading: isLoading,
-                        ),
-                ),
-
-                const Spacer(flex: 3),
-              ],
+                  // Gönder Butonu
+                  SizedBox(
+                    width: double.infinity,
+                    child: isSuccess
+                        ? AppButton.outlined(
+                            onTap: () => context.pop(),
+                            text: 'Giriş Ekranına Dön',
+                          )
+                        : AppButton(
+                            onTap: isLoading ? null : _onSubmit,
+                            text: 'Bağlantı Gönder',
+                            isLoading: isLoading,
+                          ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

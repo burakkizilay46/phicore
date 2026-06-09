@@ -186,7 +186,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                       child: Text(
                         'Giriş Yap',
                         style: context.textTheme.bodyMedium?.copyWith(
-                          color: AppColors.black,
+                          color: Theme.of(context).colorScheme.primary,
                           fontWeight: FontWeight.w600,
                         ),
                       ),

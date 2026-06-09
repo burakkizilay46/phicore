@@ -183,6 +183,10 @@ class _AppButtonState extends State<AppButton>
   Color get _resolvedColor =>
       widget.color ?? Theme.of(context).colorScheme.primary;
 
+  /// Filled/gradient buton arka planının üstündeki metin rengi.
+  Color get _onPrimaryColor =>
+      Theme.of(context).colorScheme.onPrimary;
+
   @override
   Widget build(BuildContext context) {
     return ScaleTransition(
@@ -220,7 +224,7 @@ class _AppButtonState extends State<AppButton>
           borderRadius: _borderRadius,
           boxShadow: _isEnabled ? AppShadows.soft : null,
         ),
-        child: _buildContent(AppColors.white),
+        child: _buildContent(_onPrimaryColor),
       ),
     );
   }
@@ -299,7 +303,7 @@ class _AppButtonState extends State<AppButton>
           borderRadius: _borderRadius,
           boxShadow: _isEnabled ? AppShadows.primaryGlow : null,
         ),
-        child: _buildContent(AppColors.white),
+        child: _buildContent(_onPrimaryColor),
       ),
     );
   }

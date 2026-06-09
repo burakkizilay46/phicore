@@ -55,121 +55,120 @@ class _SignInViewState extends ConsumerState<SignInView> {
 
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: AppSpacing.paddingXl,
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                const Spacer(flex: 2),
-
-                // Logo
-                Image.asset(
-                  'assets/logo/phicore_logo_transparent.png',
-                  height: 120,
-                ),
-                AppSpacing.gapXl,
-
-                // Başlık
-                Text(
-                  'Hoş Geldiniz',
-                  style: context.textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
+        child: Center(
+          child: SingleChildScrollView(
+            padding: AppSpacing.paddingXl,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Logo
+                  Image.asset(
+                    'assets/logo/phicore_logo_transparent.png',
+                    height: 120,
                   ),
-                ),
-                AppSpacing.gapXs,
-                Text(
-                  'Devam etmek için giriş yapın',
-                  style: context.textTheme.bodyMedium?.copyWith(
-                    color: AppColors.grey50,
-                  ),
-                ),
-                AppSpacing.gapXxl,
+                  AppSpacing.gapXl,
 
-                // Email
-                AppTextField(
-                  controller: _emailController,
-                  label: 'Email',
-                  hintText: 'ornek@email.com',
-                  prefixIcon: const Icon(Icons.email_outlined, size: 20),
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.next,
-                  validator: Validators.email,
-                ),
-                AppSpacing.gapMd,
-
-                // Şifre
-                AppTextField(
-                  controller: _passwordController,
-                  label: 'Şifre',
-                  hintText: '••••••',
-                  prefixIcon: const Icon(Icons.lock_outline, size: 20),
-                  obscureText: true,
-                  textInputAction: TextInputAction.done,
-                  onSubmitted: (_) => _onSignIn(),
-                  validator: Validators.password,
-                ),
-                AppSpacing.gapSm,
-
-                // Şifremi Unuttum
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {
-                      NavigationService.instance.navigateToPage(
-                        path: NavigationConstants.forgotPassword,
-                      );
-                    },
-                    child: Text(
-                      'Şifremi Unuttum',
-                      style: context.textTheme.bodySmall?.copyWith(
-                        color: AppColors.grey70,
-                      ),
+                  // Başlık
+                  Text(
+                    'Hoş Geldiniz',
+                    style: context.textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
-                ),
-                AppSpacing.gapLg,
-
-                // Giriş Butonu
-                SizedBox(
-                  width: double.infinity,
-                  child: AppButton(
-                    onTap: isLoading ? null : _onSignIn,
-                    text: 'Giriş Yap',
-                    isLoading: isLoading,
-                  ),
-                ),
-                AppSpacing.gapLg,
-
-                // Kayıt ol linki
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Hesabınız yok mu?',
-                      style: context.textTheme.bodyMedium?.copyWith(
-                        color: AppColors.grey50,
-                      ),
+                  AppSpacing.gapXs,
+                  Text(
+                    'Devam etmek için giriş yapın',
+                    style: context.textTheme.bodyMedium?.copyWith(
+                      color: AppColors.grey50,
                     ),
-                    TextButton(
+                  ),
+                  AppSpacing.gapXxl,
+
+                  // Email
+                  AppTextField(
+                    controller: _emailController,
+                    label: 'Email',
+                    hintText: 'ornek@email.com',
+                    prefixIcon: const Icon(Icons.email_outlined, size: 20),
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    validator: Validators.email,
+                  ),
+                  AppSpacing.gapMd,
+
+                  // Şifre
+                  AppTextField(
+                    controller: _passwordController,
+                    label: 'Şifre',
+                    hintText: '••••••',
+                    prefixIcon: const Icon(Icons.lock_outline, size: 20),
+                    obscureText: true,
+                    textInputAction: TextInputAction.done,
+                    onSubmitted: (_) => _onSignIn(),
+                    validator: Validators.password,
+                  ),
+                  AppSpacing.gapSm,
+
+                  // Şifremi Unuttum
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
                       onPressed: () {
                         NavigationService.instance.navigateToPage(
-                          path: NavigationConstants.register,
+                          path: NavigationConstants.forgotPassword,
                         );
                       },
                       child: Text(
-                        'Kayıt Ol',
-                        style: context.textTheme.bodyMedium?.copyWith(
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w600,
+                        'Şifremi Unuttum',
+                        style: context.textTheme.bodySmall?.copyWith(
+                          color: AppColors.grey70,
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  AppSpacing.gapLg,
 
-                const Spacer(flex: 3),
-              ],
+                  // Giriş Butonu
+                  SizedBox(
+                    width: double.infinity,
+                    child: AppButton(
+                      onTap: isLoading ? null : _onSignIn,
+                      text: 'Giriş Yap',
+                      isLoading: isLoading,
+                    ),
+                  ),
+                  AppSpacing.gapLg,
+
+                  // Kayıt ol linki
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Hesabınız yok mu?',
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          color: AppColors.grey50,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          NavigationService.instance.navigateToPage(
+                            path: NavigationConstants.register,
+                          );
+                        },
+                        child: Text(
+                          'Kayıt Ol',
+                          style: context.textTheme.bodyMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.primary,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
