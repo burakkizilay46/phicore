@@ -4,8 +4,10 @@ import 'package:phicore/core/constants/env_config.dart';
 import 'package:phicore/core/navigation/navigation_constants.dart';
 import 'package:phicore/core/navigation/navigation_routes.dart';
 import 'package:phicore/core/navigation/service/navigation_service.dart';
+import 'package:phicore/core/services/connectivity/connectivity_service.dart';
 import 'package:phicore/core/services/storage/storage_service.dart';
 import 'package:phicore/core/theme/app_theme.dart';
+import 'package:phicore/core/widgets/app_connectivity_banner.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,8 +15,9 @@ void main() async {
   // Ortam ayarı
   EnvConfig.init(Environment.dev);
 
-  // Storage başlat
+  // Servisler
   await StorageService.instance.init();
+  await ConnectivityService.instance.init();
 
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -33,6 +36,9 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.system,
+      builder: (context, child) => AppConnectivityBanner(
+        child: child ?? const SizedBox.shrink(),
+      ),
     );
   }
 }

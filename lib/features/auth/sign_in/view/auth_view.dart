@@ -160,7 +160,7 @@ class _SignInViewState extends ConsumerState<SignInView> {
                       child: Text(
                         'Kayıt Ol',
                         style: context.textTheme.bodyMedium?.copyWith(
-                          color: AppColors.primary,
+                          color: AppColors.black,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
