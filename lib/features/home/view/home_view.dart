@@ -1,61 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:phicore/core/extensions/context_extensions.dart';
-import 'package:phicore/core/navigation/navigation_constants.dart';
-import 'package:phicore/core/navigation/service/navigation_service.dart';
-import 'package:phicore/core/services/auth/auth_service.dart';
 import 'package:phicore/core/theme/app_colors.dart';
-import 'package:phicore/core/theme/app_spacing.dart';
-import 'package:phicore/core/widgets/app_button.dart';
+import 'package:phicore/features/home/view/tabs/explore_tab_view.dart';
+import 'package:phicore/features/home/view/tabs/home_tab_view.dart';
+import 'package:phicore/features/home/view/tabs/profile_tab_view.dart';
 
-class HomeView extends ConsumerWidget {
+class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends ConsumerState<HomeView> {
+  int _currentIndex = 0;
+
+  final _pages = const [
+    HomeTabView(),
+    ExploreTabView(),
+    ProfileTabView(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: AppSpacing.paddingXl,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Spacer(),
-              Image.asset(
-                'assets/logo/phicore_logo_transparent.png',
-                height: 80,
-              ),
-              AppSpacing.gapXl,
-              Text(
-                'PhiCore',
-                style: context.textTheme.headlineLarge?.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              AppSpacing.gapSm,
-              Text(
-                'Başarıyla giriş yaptınız',
-                style: context.textTheme.bodyLarge?.copyWith(
-                  color: AppColors.grey50,
-                ),
-              ),
-              const Spacer(),
-              SizedBox(
-                width: double.infinity,
-                child: AppButton.outlined(
-                  onTap: () async {
-                    await AuthService().signOut();
-                    NavigationService.instance.navigateToPageClear(
-                      path: NavigationConstants.signIn,
-                    );
-                  },
-                  text: 'Çıkış Yap',
-                  prefixIcon: const Icon(Icons.logout, size: 20),
-                ),
-              ),
-              AppSpacing.gapXl,
-            ],
-          ),
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _pages,
+      ),
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (index) => setState(() => _currentIndex = index),
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: AppColors.surface,
+          selectedItemColor: AppColors.primary,
+          unselectedItemColor: AppColors.grey50,
+          selectedFontSize: 12,
+          unselectedFontSize: 12,
+          elevation: 0,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              activeIcon: Icon(Icons.home),
+              label: 'Ana Sayfa',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.explore_outlined),
+              activeIcon: Icon(Icons.explore),
+              label: 'Keşfet',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline),
+              activeIcon: Icon(Icons.person),
+              label: 'Profil',
+            ),
+          ],
         ),
       ),
     );
