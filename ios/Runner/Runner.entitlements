@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!--
+	  Sign in with Apple için gerekli.
+	  Xcode'da: Runner target -> Signing & Capabilities -> "+ Capability" ->
+	  "Sign in with Apple" eklendiğinde bu dosya otomatik bağlanır
+	  (CODE_SIGN_ENTITLEMENTS). Apple Developer hesabında App ID için de
+	  "Sign In with Apple" yetkisini etkinleştirin.
+	-->
+	<key>com.apple.developer.applesignin</key>
+	<array>
+		<string>Default</string>
+	</array>
+</dict>
+</plist>

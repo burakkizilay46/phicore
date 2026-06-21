@@ -58,6 +58,40 @@ class AuthService extends IAuthService {
   }
 
   @override
+  Future<ResponseHandler<UserModel>> signInWithGoogle() async {
+    // TODO: Firebase açıkken FirebaseAuthService kullanılır. Bu mock yalnızca
+    // enableFirebase=false iken çalışır.
+    await Future.delayed(const Duration(seconds: 1));
+
+    const mockUser = UserModel(
+      id: 'usr_google_mock',
+      email: 'google.user@example.com',
+      name: 'Google',
+      surname: 'User',
+    );
+    await _storage.setSecure(AppConstants.tokenKey,
+        'mock_google_token_${DateTime.now().millisecondsSinceEpoch}');
+    return const ResponseHandler.success(mockUser);
+  }
+
+  @override
+  Future<ResponseHandler<UserModel>> signInWithApple() async {
+    // TODO: Firebase açıkken FirebaseAuthService kullanılır. Bu mock yalnızca
+    // enableFirebase=false iken çalışır.
+    await Future.delayed(const Duration(seconds: 1));
+
+    const mockUser = UserModel(
+      id: 'usr_apple_mock',
+      email: 'apple.user@example.com',
+      name: 'Apple',
+      surname: 'User',
+    );
+    await _storage.setSecure(AppConstants.tokenKey,
+        'mock_apple_token_${DateTime.now().millisecondsSinceEpoch}');
+    return const ResponseHandler.success(mockUser);
+  }
+
+  @override
   Future<ResponseHandler<bool>> forgotPassword({required String email}) async {
     // TODO: Gerçek API çağrısı ile değiştirilecek
     await Future.delayed(const Duration(seconds: 1));

@@ -38,6 +38,9 @@ const Map<String, String> tr = {
   'back_to_sign_in': 'Giriş Ekranına Dön',
   'reset_email_sent':
       'Şifre sıfırlama bağlantısı email adresinize gönderildi',
+  'or': 'veya',
+  'continue_with_google': 'Google ile devam et',
+  'continue_with_apple': 'Apple ile devam et',
 
   // ── Validation ──
   'validation_required': 'Bu alan zorunludur',

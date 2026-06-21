@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phicore/core/extensions/context_extensions.dart';
@@ -139,6 +141,59 @@ class _SignInViewState extends ConsumerState<SignInView> {
                       isLoading: isLoading,
                     ),
                   ),
+                  AppSpacing.gapLg,
+
+                  // Ayraç ("veya")
+                  Row(
+                    children: [
+                      const Expanded(child: Divider()),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Text(
+                          context.tr('or'),
+                          style: context.textTheme.bodySmall?.copyWith(
+                            color: AppColors.grey50,
+                          ),
+                        ),
+                      ),
+                      const Expanded(child: Divider()),
+                    ],
+                  ),
+                  AppSpacing.gapLg,
+
+                  // Google ile devam et
+                  SizedBox(
+                    width: double.infinity,
+                    child: AppButton(
+                      onTap: isLoading
+                          ? null
+                          : () => ref
+                              .read(authViewModelProvider.notifier)
+                              .signInWithGoogle(),
+                      text: context.tr('continue_with_google'),
+                      variant: AppButtonVariant.outlined,
+                      // TODO: Resmi Google logosu için bir asset ile değiştirilebilir.
+                      prefixIcon: const Icon(Icons.g_mobiledata, size: 26),
+                    ),
+                  ),
+
+                  // Apple ile devam et (yalnız iOS)
+                  if (Platform.isIOS) ...[
+                    AppSpacing.gapMd,
+                    SizedBox(
+                      width: double.infinity,
+                      child: AppButton(
+                        onTap: isLoading
+                            ? null
+                            : () => ref
+                                .read(authViewModelProvider.notifier)
+                                .signInWithApple(),
+                        text: context.tr('continue_with_apple'),
+                        variant: AppButtonVariant.outlined,
+                        prefixIcon: const Icon(Icons.apple, size: 20),
+                      ),
+                    ),
+                  ],
                   AppSpacing.gapLg,
 
                   // Kayıt ol linki

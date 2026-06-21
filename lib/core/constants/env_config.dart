@@ -46,4 +46,22 @@ class EnvConfig {
   }
 
   static bool get enableLogging => !isProd;
+
+  /// Firebase ana anahtarı.
+  ///
+  /// `false` iken uygulama mevcut **mock `AuthService`** ile çalışır; Analytics
+  /// ve App Check no-op olur. Böylece template, Firebase projesi bağlanmadan da
+  /// kutudan çıkar çıkmaz çalışır.
+  ///
+  /// Kendi Firebase projenizi bağladıktan sonra (bkz. README) `dev` için `true`
+  /// yapın. `staging`/`prod` zaten `true`.
+  static bool get enableFirebase {
+    switch (_env) {
+      case Environment.dev:
+        return false;
+      case Environment.staging:
+      case Environment.prod:
+        return true;
+    }
+  }
 }

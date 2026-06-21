@@ -37,6 +37,9 @@ const Map<String, String> en = {
   'send_link': 'Send Link',
   'back_to_sign_in': 'Back to Sign In',
   'reset_email_sent': 'Password reset link has been sent to your email',
+  'or': 'or',
+  'continue_with_google': 'Continue with Google',
+  'continue_with_apple': 'Continue with Apple',
 
   // ── Validation ──
   'validation_required': 'This field is required',

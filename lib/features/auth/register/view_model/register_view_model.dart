@@ -3,16 +3,19 @@ import 'package:phicore/core/base/view_model/base_state.dart';
 import 'package:phicore/core/base/view_model/base_view_model.dart';
 import 'package:phicore/core/navigation/navigation_constants.dart';
 import 'package:phicore/core/navigation/service/navigation_service.dart';
-import 'package:phicore/core/services/auth/auth_service.dart';
+import 'package:phicore/core/services/auth/auth_service_provider.dart';
+import 'package:phicore/core/services/auth/i_auth_service.dart';
 import 'package:phicore/features/auth/sign_in/data/model/auth_user_model.dart';
 
 final registerViewModelProvider =
     StateNotifierProvider<RegisterViewModel, BaseState<UserModel>>((ref) {
-  return RegisterViewModel();
+  return RegisterViewModel(ref.read(authServiceProvider));
 });
 
 class RegisterViewModel extends BaseViewModel<UserModel> {
-  final AuthService _authService = AuthService();
+  RegisterViewModel(this._authService);
+
+  final IAuthService _authService;
 
   Future<void> register({
     required String name,

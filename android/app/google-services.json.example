@@ -1,0 +1,30 @@
+{
+  "_comment": "PLACEHOLDER — Firebase Console > Project settings > Android uygulamanız için 'google-services.json' dosyasını indirip bu dizine 'google-services.json' adıyla koyun. (flutterfire configure çalıştırırsanız bu dosya otomatik oluşturulur.) Gerçek dosya .gitignore ile yok sayılır.",
+  "project_info": {
+    "project_number": "TODO_MESSAGING_SENDER_ID",
+    "project_id": "TODO_PROJECT_ID",
+    "storage_bucket": "TODO_PROJECT_ID.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "TODO_ANDROID_APP_ID",
+        "android_client_info": {
+          "package_name": "com.example.phicore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "TODO_ANDROID_API_KEY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

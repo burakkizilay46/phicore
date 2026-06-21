@@ -1,10 +1,16 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:phicore/core/services/auth/auth_service.dart';
 
 void main() {
+  // Mock AuthService, token'ları FlutterSecureStorage'a yazar; testte platform
+  // kanalı yerine bellek-içi mock kullanılır.
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   late AuthService authService;
 
   setUp(() {
+    FlutterSecureStorage.setMockInitialValues({});
     authService = AuthService();
   });
 
@@ -51,6 +57,34 @@ void main() {
           expect(user.email, 'test@example.com');
           expect(user.name, 'Burak');
           expect(user.surname, 'Kızılay');
+        },
+        failure: (message) => fail('Başarılı olmalıydı: $message'),
+      );
+    });
+  });
+
+  group('AuthService.signInWithGoogle', () {
+    test('mock kullanıcı ile başarılı döner', () async {
+      final result = await authService.signInWithGoogle();
+
+      result.when(
+        success: (user) {
+          expect(user.email, isNotEmpty);
+          expect(user.name, isNotEmpty);
+        },
+        failure: (message) => fail('Başarılı olmalıydı: $message'),
+      );
+    });
+  });
+
+  group('AuthService.signInWithApple', () {
+    test('mock kullanıcı ile başarılı döner', () async {
+      final result = await authService.signInWithApple();
+
+      result.when(
+        success: (user) {
+          expect(user.email, isNotEmpty);
+          expect(user.name, isNotEmpty);
         },
         failure: (message) => fail('Başarılı olmalıydı: $message'),
       );

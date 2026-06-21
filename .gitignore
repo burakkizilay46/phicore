@@ -45,3 +45,10 @@ app.*.map.json
 /android/app/release
 
 /CLAUDE.md
+
+# Firebase — proje-özel indirilen yapılandırma dosyaları (repoya commit'lemeyin).
+# Bu template'i kullananlar kendi dosyalarını yerleştirir; .example sürümleri commit'lidir.
+# Not: lib/firebase_options.dart placeholder olarak commit'lidir (gizli değer içermez);
+# flutterfire configure çalıştırınca güncellenir, commit'leyip commit'lememek size kalmış.
+/android/app/google-services.json
+/ios/Runner/GoogleService-Info.plist
