@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phicore/core/extensions/context_extensions.dart';
+import 'package:phicore/core/localization/app_localizations.dart';
 import 'package:phicore/core/navigation/navigation_constants.dart';
 import 'package:phicore/core/navigation/service/navigation_service.dart';
 import 'package:phicore/core/theme/app_colors.dart';
@@ -45,7 +46,6 @@ class _SignInViewState extends ConsumerState<SignInView> {
     final state = ref.watch(authViewModelProvider);
     final isLoading = state.maybeWhen(loading: () => true, orElse: () => false);
 
-    // Error listener
     ref.listen(authViewModelProvider, (prev, next) {
       next.maybeWhen(
         error: (message) => AppSnackbar.error(context, message: message),
@@ -72,14 +72,14 @@ class _SignInViewState extends ConsumerState<SignInView> {
 
                   // Başlık
                   Text(
-                    'Hoş Geldiniz',
+                    context.tr('welcome'),
                     style: context.textTheme.headlineMedium?.copyWith(
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                   AppSpacing.gapXs,
                   Text(
-                    'Devam etmek için giriş yapın',
+                    context.tr('sign_in_subtitle'),
                     style: context.textTheme.bodyMedium?.copyWith(
                       color: AppColors.grey50,
                     ),
@@ -89,8 +89,8 @@ class _SignInViewState extends ConsumerState<SignInView> {
                   // Email
                   AppTextField(
                     controller: _emailController,
-                    label: 'Email',
-                    hintText: 'ornek@email.com',
+                    label: context.tr('email'),
+                    hintText: context.tr('email_hint'),
                     prefixIcon: const Icon(Icons.email_outlined, size: 20),
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
@@ -101,8 +101,8 @@ class _SignInViewState extends ConsumerState<SignInView> {
                   // Şifre
                   AppTextField(
                     controller: _passwordController,
-                    label: 'Şifre',
-                    hintText: '••••••',
+                    label: context.tr('password'),
+                    hintText: context.tr('password_hint'),
                     prefixIcon: const Icon(Icons.lock_outline, size: 20),
                     obscureText: true,
                     textInputAction: TextInputAction.done,
@@ -121,7 +121,7 @@ class _SignInViewState extends ConsumerState<SignInView> {
                         );
                       },
                       child: Text(
-                        'Şifremi Unuttum',
+                        context.tr('forgot_password'),
                         style: context.textTheme.bodySmall?.copyWith(
                           color: AppColors.grey70,
                         ),
@@ -135,7 +135,7 @@ class _SignInViewState extends ConsumerState<SignInView> {
                     width: double.infinity,
                     child: AppButton(
                       onTap: isLoading ? null : _onSignIn,
-                      text: 'Giriş Yap',
+                      text: context.tr('sign_in'),
                       isLoading: isLoading,
                     ),
                   ),
@@ -146,7 +146,7 @@ class _SignInViewState extends ConsumerState<SignInView> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Hesabınız yok mu?',
+                        context.tr('no_account'),
                         style: context.textTheme.bodyMedium?.copyWith(
                           color: AppColors.grey50,
                         ),
@@ -158,7 +158,7 @@ class _SignInViewState extends ConsumerState<SignInView> {
                           );
                         },
                         child: Text(
-                          'Kayıt Ol',
+                          context.tr('sign_up'),
                           style: context.textTheme.bodyMedium?.copyWith(
                             color: Theme.of(context).colorScheme.primary,
                             fontWeight: FontWeight.w600,

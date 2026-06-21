@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phicore/core/extensions/context_extensions.dart';
+import 'package:phicore/core/localization/app_localizations.dart';
 import 'package:phicore/core/theme/app_colors.dart';
 import 'package:phicore/core/theme/app_spacing.dart';
 import 'package:phicore/core/utils/validators.dart';
@@ -66,7 +67,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
           onPressed: () => context.pop(),
           icon: const Icon(Icons.arrow_back_ios_new, size: 20),
         ),
-        title: const Text('Kayıt Ol'),
+        title: Text(context.tr('sign_up')),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -80,14 +81,14 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
 
                 // Başlık
                 Text(
-                  'Hesap Oluşturun',
+                  context.tr('create_account'),
                   style: context.textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 AppSpacing.gapXs,
                 Text(
-                  'Bilgilerinizi girerek kayıt olun',
+                  context.tr('register_subtitle'),
                   style: context.textTheme.bodyMedium?.copyWith(
                     color: AppColors.grey50,
                   ),
@@ -100,8 +101,8 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                     Expanded(
                       child: AppTextField(
                         controller: _nameController,
-                        label: 'Ad',
-                        hintText: 'Adınız',
+                        label: context.tr('name'),
+                        hintText: context.tr('name_hint'),
                         prefixIcon: const Icon(Icons.person_outline, size: 20),
                         textInputAction: TextInputAction.next,
                         validator: Validators.name,
@@ -111,8 +112,8 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                     Expanded(
                       child: AppTextField(
                         controller: _surnameController,
-                        label: 'Soyad',
-                        hintText: 'Soyadınız',
+                        label: context.tr('surname'),
+                        hintText: context.tr('surname_hint'),
                         textInputAction: TextInputAction.next,
                         validator: Validators.name,
                       ),
@@ -124,8 +125,8 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                 // Email
                 AppTextField(
                   controller: _emailController,
-                  label: 'Email',
-                  hintText: 'ornek@email.com',
+                  label: context.tr('email'),
+                  hintText: context.tr('email_hint'),
                   prefixIcon: const Icon(Icons.email_outlined, size: 20),
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
@@ -136,8 +137,8 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                 // Şifre
                 AppTextField(
                   controller: _passwordController,
-                  label: 'Şifre',
-                  hintText: '••••••',
+                  label: context.tr('password'),
+                  hintText: context.tr('password_hint'),
                   prefixIcon: const Icon(Icons.lock_outline, size: 20),
                   obscureText: true,
                   textInputAction: TextInputAction.next,
@@ -148,8 +149,8 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                 // Şifre Tekrar
                 AppTextField(
                   controller: _confirmPasswordController,
-                  label: 'Şifre Tekrar',
-                  hintText: '••••••',
+                  label: context.tr('confirm_password'),
+                  hintText: context.tr('password_hint'),
                   prefixIcon: const Icon(Icons.lock_outline, size: 20),
                   obscureText: true,
                   textInputAction: TextInputAction.done,
@@ -165,7 +166,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                   width: double.infinity,
                   child: AppButton(
                     onTap: isLoading ? null : _onRegister,
-                    text: 'Kayıt Ol',
+                    text: context.tr('sign_up'),
                     isLoading: isLoading,
                   ),
                 ),
@@ -176,7 +177,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Zaten hesabınız var mı?',
+                      context.tr('has_account'),
                       style: context.textTheme.bodyMedium?.copyWith(
                         color: AppColors.grey50,
                       ),
@@ -184,7 +185,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                     TextButton(
                       onPressed: () => context.pop(),
                       child: Text(
-                        'Giriş Yap',
+                        context.tr('sign_in'),
                         style: context.textTheme.bodyMedium?.copyWith(
                           color: Theme.of(context).colorScheme.primary,
                           fontWeight: FontWeight.w600,
