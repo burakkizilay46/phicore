@@ -139,6 +139,86 @@ eklenir ve ekran geçişlerini izler. Başarılı giriş/kayıt için örnek `lo
 
 ---
 
+## 🧭 Onboarding Akışı
+
+İlk açılışta, **giriş ekranından önce** gösterilen yapılandırılabilir bir tanıtım + anket akışı.
+Amaç: kullanıcıyı kısaca karşılamak ve ürün için değerli birkaç bilgi toplamak
+(kullanım amacı, deneyim seviyesi, bizi nereden keşfettiği). Soru sayısı bilinçli olarak az
+tutulmuştur — uzun anketler tamamlanma oranını düşürür.
+
+### Akış nasıl çalışır?
+Yönlendirme tek noktadan, `lib/features/splash/view_model/splash_view_model.dart` içinde
+kararlaştırılır:
+
+```
+splash → (onboarding görülmedi)            → onboarding → signIn → home
+       → (görüldü + oturum açık)           → home
+       → (görüldü + oturum yok)            → signIn
+```
+
+- Onboarding tamamlandığında `signIn` ekranına geçilir ve `onboarding_completed` bayrağı
+  (`SharedPreferences`) kaydedilir.
+- Toplanan cevaplar **yalnızca bellek-içi (Riverpod state)** tutulur. Backend/analytics gönderimi
+  `OnboardingViewModel.complete()` içinde `TODO` olarak bırakılmıştır.
+
+### `alwaysShow` bayrağı — geliştirme kolaylığı
+`lib/features/onboarding/config/onboarding_config.dart` içindeki `alwaysShow`:
+
+| Değer | Davranış |
+|---|---|
+| `true` (varsayılan / dev) | Her açılışta onboarding gösterilir (kayıtlı bayrak yok sayılır). |
+| `false` (prod) | Onboarding yalnızca **bir kez** gösterilir. |
+
+### Adımları düzenleme — tek dosya
+Tüm akış `OnboardingConfig.steps` listesinden yönetilir. Adım **eklemek / çıkarmak / sıralamak**
+için yalnızca bu listeyi düzenlemeniz yeterli; metinler doğrudan değil, lokalizasyon anahtarı
+olarak tutulur.
+
+```dart
+// lib/features/onboarding/config/onboarding_config.dart
+static const List<OnboardingStep> steps = [
+  OnboardingInfoStep(...),       // tanıtım slaytı
+  OnboardingQuestionStep(...),   // tek seçimli soru
+  OnboardingPermissionStep(...), // bildirim izni (soft-ask)
+];
+```
+
+3 adım tipi (`lib/features/onboarding/data/model/onboarding_step.dart`):
+
+| Tip | Ne işe yarar | Önemli alanlar |
+|---|---|---|
+| `OnboardingInfoStep` | Karşılama / değer önerisi slaytı | `titleKey`, `descriptionKey`, `icon` |
+| `OnboardingQuestionStep` | Tek seçimli anket sorusu | `key`, `questionKey`, `options`, `optional` |
+| `OnboardingPermissionStep` | Bildirim izni hazırlık ekranı | `titleKey`, `descriptionKey` |
+
+> **`optional`:** `OnboardingQuestionStep.optional = true` yaparsanız cevap zorunlu olmaktan
+> çıkar (kullanıcı cevap vermeden "Devam" edebilir). Varsayılan olarak sorular zorunludur.
+
+### Metinler (lokalizasyon)
+Adımlarda kullanılan tüm metinler anahtardır; karşılıkları iki dosyada bulunur:
+`lib/core/localization/translations/en.dart` ve `tr.dart` (`onb_` ön ekiyle başlayanlar).
+Yeni bir adım/soru eklerken anahtarlarını **her iki dosyaya da** eklemeyi unutmayın.
+
+### Tema
+Tüm onboarding ekranları tema-duyarlıdır (`context.colorScheme` / `context.textTheme` kullanır,
+hardcoded renk yoktur). `main.dart`'taki `themeMode`'a göre açık/koyu temaya otomatik uyum sağlar.
+
+### Bildirim izni
+Bildirim adımı şu an yalnızca **hazırlık (soft-ask)** ekranıdır; gerçek sistem izni isteği
+`lib/features/onboarding/view/onboarding_view.dart` içinde `TODO` olarak bırakılmıştır
+(projeye bir izin paketi — `permission_handler` / `firebase_messaging` — eklendiğinde bağlanır).
+
+### İlgili dosyalar
+| Dosya / klasör | Sorumluluk |
+|---|---|
+| `lib/features/onboarding/config/onboarding_config.dart` | **Düzenleme noktası**: adımlar + `alwaysShow` |
+| `lib/features/onboarding/data/model/onboarding_step.dart` | Adım tipleri (sealed sınıflar) |
+| `lib/features/onboarding/view_model/` | State + ViewModel (navigasyon, cevaplar) |
+| `lib/features/onboarding/view/` | Ekran kabuğu + adım widget'ları |
+| `lib/features/splash/view_model/splash_view_model.dart` | Onboarding yönlendirme kararı |
+
+---
+
 ## Geliştirme Komutları
 ```bash
 flutter pub get
