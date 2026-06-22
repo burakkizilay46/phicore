@@ -81,4 +81,47 @@ const Map<String, String> tr = {
   // ── Connectivity ──
   'connection_lost': 'Bağlantı kesildi',
   'connection_restored': 'Tekrar bağlandı',
+
+  // ── Onboarding ──
+  // Navigasyon
+  'onb_skip': 'Atla',
+  'onb_back': 'Geri',
+  'onb_next': 'Devam',
+  'onb_finish': 'Bitir',
+  'onb_allow': 'İzin Ver',
+  'onb_later': 'Şimdi değil',
+  'onb_personalize_hint': 'Bu, deneyiminizi kişiselleştirmemize yardımcı olur.',
+
+  // Karşılama slaytları
+  'onb_welcome1_title': 'PhiCore’a hoş geldiniz',
+  'onb_welcome1_desc':
+      'Bir sonraki uygulamanızı üzerine kuracağınız hızlı ve sade bir temel.',
+  'onb_welcome2_title': 'Gizli ve güvenli',
+  'onb_welcome2_desc':
+      'Verileriniz size ait kalır. İşleri basit ve güvenli tutuyoruz.',
+
+  // Soru 1 — Kullanım amacı
+  'onb_q_usecase': 'Uygulamayı ne amaçla kullanacaksınız?',
+  'onb_usecase_personal': 'Kişisel kullanım',
+  'onb_usecase_work': 'İş',
+  'onb_usecase_education': 'Eğitim',
+
+  // Soru 2 — Deneyim seviyesi
+  'onb_q_experience': 'Bu tür uygulamalara ne kadar aşinasınız?',
+  'onb_exp_beginner': 'Yeni başlayan',
+  'onb_exp_intermediate': 'Orta seviye',
+  'onb_exp_advanced': 'İleri seviye',
+
+  // Soru 3 — Keşif / attribution
+  'onb_q_discovery': 'Bizi nereden keşfettiniz?',
+  'onb_disc_appstore': 'Uygulama mağazası',
+  'onb_disc_social': 'Sosyal medya',
+  'onb_disc_friend': 'Arkadaş veya iş arkadaşı',
+  'onb_disc_search': 'İnternet araması',
+  'onb_disc_other': 'Diğer',
+
+  // Bildirim soft-ask
+  'onb_notif_title': 'Gelişmelerden haberdar olun',
+  'onb_notif_desc':
+      'Önemli hiçbir şeyi kaçırmamak için bildirimleri açın.',
 };

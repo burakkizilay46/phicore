@@ -79,4 +79,47 @@ const Map<String, String> en = {
   // ── Connectivity ──
   'connection_lost': 'Connection lost',
   'connection_restored': 'Connection restored',
+
+  // ── Onboarding ──
+  // Navigation
+  'onb_skip': 'Skip',
+  'onb_back': 'Back',
+  'onb_next': 'Next',
+  'onb_finish': 'Finish',
+  'onb_allow': 'Allow',
+  'onb_later': 'Not now',
+  'onb_personalize_hint': 'This helps us personalize your experience.',
+
+  // Welcome slides
+  'onb_welcome1_title': 'Welcome to PhiCore',
+  'onb_welcome1_desc':
+      'A fast, minimal foundation to build your next app on.',
+  'onb_welcome2_title': 'Private & secure',
+  'onb_welcome2_desc':
+      'Your data stays yours. We keep things simple and safe.',
+
+  // Q1 — Use case
+  'onb_q_usecase': 'What will you use the app for?',
+  'onb_usecase_personal': 'Personal use',
+  'onb_usecase_work': 'Work',
+  'onb_usecase_education': 'Education',
+
+  // Q2 — Experience level
+  'onb_q_experience': 'How familiar are you with apps like this?',
+  'onb_exp_beginner': 'Beginner',
+  'onb_exp_intermediate': 'Intermediate',
+  'onb_exp_advanced': 'Advanced',
+
+  // Q3 — Discovery / attribution
+  'onb_q_discovery': 'How did you discover us?',
+  'onb_disc_appstore': 'App Store',
+  'onb_disc_social': 'Social media',
+  'onb_disc_friend': 'Friend or colleague',
+  'onb_disc_search': 'Web search',
+  'onb_disc_other': 'Other',
+
+  // Notification soft-ask
+  'onb_notif_title': 'Stay in the loop',
+  'onb_notif_desc':
+      'Turn on notifications so you never miss anything important.',
 };

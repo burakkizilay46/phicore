@@ -15,11 +15,7 @@ class HomeView extends ConsumerStatefulWidget {
 class _HomeViewState extends ConsumerState<HomeView> {
   int _currentIndex = 0;
 
-  static const _pages = [
-    HomeTabView(),
-    ExploreTabView(),
-    ProfileTabView(),
-  ];
+  static const _pages = [HomeTabView(), ExploreTabView(), ProfileTabView()];
 
   static const _navItems = [
     AppBottomNavItem(icon: Icons.home_outlined, activeIcon: Icons.home),
@@ -31,10 +27,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _pages,
-      ),
+      body: IndexedStack(index: _currentIndex, children: _pages),
       bottomNavigationBar: AppBottomNavBar(
         currentIndex: _currentIndex,
         onTap: (index) => setState(() => _currentIndex = index),
